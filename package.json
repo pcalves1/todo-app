@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./src/index.js",
-    "prod": "pm2 restart ./src/index.js"
+    "prod": "pm2 restart ./src/index.js",
+    "pm2-ls": "pm2 list",
+    "pm2-del": "pm2 delete 0"
   },
   "keywords": [],
   "author": "",
