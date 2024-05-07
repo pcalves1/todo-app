@@ -10,8 +10,7 @@ services:
       MYSQL_HOST: mysql-db
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: todo_items
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
+      MYSQL_USER: user
     container_name: todo-app
     restart: unless-stopped
     command: ["npm", "start"]
@@ -29,8 +28,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: todo_items
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
+      MYSQL_USER: user
     ports:
       - "3306:3306"
     volumes:
