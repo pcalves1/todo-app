@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon ./src/index.js",
     "start-container": "node ./src/index.js",
-    "prod": "pm2 start ./src/index.js -f",
+    "prod": "pm2 start ./src/index.js --update-env -f",
     "pm2-ls": "pm2 list",
     "pm2-log": "pm2 logs",
     "pm2-del": "pm2 delete 0"
