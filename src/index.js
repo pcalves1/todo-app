@@ -1,6 +1,5 @@
 const express = require('express');
-const mysql = require('mysql2');
-const dbConfig = require('./persistence/dbConfig');
+const db = require('./persistence/mysql');
 const getItems = require('./routes/getItems');
 const addItem = require('./routes/addItem');
 const updateItem = require('./routes/updateItem');
@@ -8,16 +7,19 @@ const deleteItem = require('./routes/deleteItem');
 const logger = require('../logger/logger');
 
 const app = express();
-const pool = mysql.createPool(dbConfig);
 
 app.use(express.json());
 app.use(express.static(__dirname + '/static'));
 
-app.get('/items', (req, res) => getItems(pool, req, res));
-app.post('/items', (req, res) => addItem(pool, req, res));
-app.put('/items/:id', (req, res) => updateItem(pool, req, res));
-app.delete('/items/:id', (req, res) => deleteItem(pool, req, res));
+app.get('/items', getItems);
+app.post('/items', addItem);
+app.put('/items/:id', updateItem);
+app.delete('/items/:id', deleteItem);
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => logger.info(`Server listening on port ${PORT}`));
+db.dbConfig().then(() => {
+    app.listen(PORT, () => logger.info(`Server listening on port ${PORT}`));
+}).catch(err => {
+    logger.error('Error setting up database:', err);
+});
