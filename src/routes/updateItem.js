@@ -1,5 +1,3 @@
-const db = require('../persistence/mysql');
-
 module.exports = async (pool, req, res) => {
     try {
         await pool.promise().query('UPDATE items SET ? WHERE id = ?', [
