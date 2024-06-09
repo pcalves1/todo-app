@@ -1,22 +1,15 @@
 const express = require('express');
-const mysql = require('mysql2/promise');
-const dbConfig = require('./persistence/dbOpts');
-const getItems = require('./routes/getItems');
-const addItem = require('./routes/addItem');
-const updateItem = require('./routes/updateItem');
-const deleteItem = require('./routes/deleteItem');
 const logger = require('../logger/logger');
-
+const routes = require('./routes/routes')
 const app = express();
-const pool = mysql.createPool(dbConfig);
 
 app.use(express.json());
 app.use(express.static(__dirname + '/static'));
 
-app.get('/items', (req, res) => getItems(pool, req, res));
-app.post('/items', (req, res) => addItem(pool, req, res));
-app.put('/items/:id', (req, res) => updateItem(pool, req, res));
-app.delete('/items/:id', (req, res) => deleteItem(pool, req, res));
+app.get('/items', (req, res) => routes.getItems(req, res));
+app.post('/items', (req, res) => routes.addItem(req, res));
+app.put('/items/:id', (req, res) => routes.updateItem(req, res));
+app.delete('/items/:id', (req, res) => routes.deleteItem(req, res));
 
 const PORT = process.env.PORT || 3000;
 
