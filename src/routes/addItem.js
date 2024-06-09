@@ -1,4 +1,5 @@
 const { v4: uuid } = require('uuid');
+const logger = require('../../logger/logger');
 
 module.exports = async (pool, req, res) => {
     const item = {
@@ -6,7 +7,6 @@ module.exports = async (pool, req, res) => {
         name: req.body.name,
         completed: false,
     };
-
     try {
         await pool.promise().query('INSERT INTO items SET ?', item);
         logger.debug(`Item [${item.id}] created`)
